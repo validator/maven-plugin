@@ -58,7 +58,18 @@ SOFTWARE.
         <tag>HEAD</tag>
         <connection>scm:git:ssh://git@github.com:validator/maven-plugin.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:validator/maven-plugin.git</developerConnection>
+        <url>https://github.com/validator/maven-plugin</url>
     </scm>
+    <distributionManagement>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <build>
         <plugins>
@@ -110,6 +121,31 @@ SOFTWARE.
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+              <groupId>org.sonatype.plugins</groupId>
+              <artifactId>nexus-staging-maven-plugin</artifactId>
+              <version>1.5.1</version>
+              <executions>
+                <execution>
+                  <id>default-deploy</id>
+                  <phase>deploy</phase>
+                  <goals>
+                    <goal>deploy</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <serverId>ossrh</serverId>
+                <extensions>true</extensions>
+                <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              </configuration>
+            </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+          </plugin>
         </plugins>
         <resources>
             <resource>
@@ -188,6 +224,10 @@ SOFTWARE.
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>2.10.4</version>
+                        <configuration>
+                          <additionalparam>-Xdoclint:none</additionalparam>
+                          <source>8</source>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -213,6 +253,12 @@ SOFTWARE.
                     </plugin>
                 </plugins>
             </build>
+            <activation>
+              <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+              <gpg.executable>gpg</gpg.executable>
+            </properties>
         </profile>
     </profiles>
 </project>
