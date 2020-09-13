@@ -91,3 +91,18 @@ are completely ignored. Mutiple filters can be configured. Example:
         <type>ERROR</type>
     </filter>
 
+## Additional (general) options
+
+### Failfast
+
+Fail on first error (default is to process all errors and fail in the end
+if there are errors)
+
+    <failfast>true</failfast>
+
+### ASCII / Unicode quotes
+
+By default, quotes in the errors messages will be displayed as ASCII quotes.
+It is possible to switch to unicode quites by setting this option to 'false'
+
+    <asciiquotes>false</asciiquotes>
