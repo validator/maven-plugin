@@ -14,7 +14,7 @@ Add the plugin to your pom.xml:
             <plugin>
                 <groupId>nu.validator</groupId>
                 <artifactId>vnu-maven-plugin</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
 
                 <!-- The plugin should hook into the validate goal -->
                 <executions>
